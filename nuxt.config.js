@@ -40,7 +40,16 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
+  auth: {
+    strategies: {
+      github: {
+        client_id: 'de81d9a8342842ab37cd',
+        client_secret: '251be8aecb8bfa42ccdc78d323f96ab4362d3c46'
+      }
+    }
+  },
+
   /*
    ** Build configuration
    */
