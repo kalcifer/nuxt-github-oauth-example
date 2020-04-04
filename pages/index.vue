@@ -1,35 +1,46 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
         nuxt-github-oauth-example
       </h1>
       <h2 class="subtitle">
         This is an example of implementing oauth with nuxtjs and github
       </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div>
+        <nuxt-link to="/secret">Go to secret page</nuxt-link>
+      </div>
+      <div>
+        <span>user</span><span>{{ user }}</span>
+      </div>
+      <div>
+        <button v-if="!loggedIn" type="button" @click="login">
+          Login with github
+        </button>
+        <button v-if="loggedIn" type="button" @click="logout">
+          Logout
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      loggedIn: this.$auth.loggedIn,
+      user: this.$auth.user
+    }
+  },
+  methods: {
+    login() {
+      this.$auth.loginWith('github')
+    },
+    logout() {
+      this.$auth.logout()
+      window.location.reload(true)
+    }
   }
 }
 </script>
@@ -64,5 +75,8 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+button {
+  font-size: 20px;
 }
 </style>
